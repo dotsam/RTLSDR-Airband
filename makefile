@@ -15,7 +15,7 @@ ifneq ($(RTL_AIRBAND_VERSION), \"\")
 endif
 export CXXFLAGS = $(CFLAGS)
 export LDFLAGS = -rdynamic
-LDLIBS = -lrt -lm -ldl -lvorbisenc -lmp3lame -lshout -lpthread -lconfig++
+LDLIBS = -lm -ldl -lvorbisenc -lmp3lame -lshout -lpthread -lconfig++
 INSTALL_USER = root
 INSTALL_GROUP = root
 
@@ -32,19 +32,19 @@ UNKNOWN_PLATFORM = 0
 ifeq ($(PLATFORM), rpiv1)
   CFLAGS += -DUSE_BCM_VC
   CFLAGS += -I/opt/vc/include  -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux
-  CFLAGS += -mcpu=arm1176jzf-s -mtune=arm1176jzf-s -march=armv6zk -mfpu=vfp -ffast-math 
+  CFLAGS += -mcpu=arm1176jzf-s -mtune=arm1176jzf-s -march=armv6zk -mfpu=vfp -ffast-math
   LDLIBS += -lbcm_host -ldl
   LDFLAGS += -L/opt/vc/lib
   DEPS = $(OBJ) $(FFT) rtl_airband_vfp.o
 else ifeq ($(PLATFORM), rpiv2)
   CFLAGS += -DUSE_BCM_VC
   CFLAGS += -I/opt/vc/include  -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux
-  CFLAGS += -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math 
+  CFLAGS += -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math
   LDLIBS += -lbcm_host -ldl
   LDFLAGS += -L/opt/vc/lib
   DEPS = $(OBJ) $(FFT) rtl_airband_neon.o
 else ifeq ($(PLATFORM), armv7-generic)
-  CFLAGS += -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math 
+  CFLAGS += -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math
   LDLIBS += -lfftw3f
   DEPS = $(OBJ)
 else ifeq ($(PLATFORM), armv8-generic)
@@ -156,4 +156,3 @@ install: $(BIN)
 
 $(CLEANDIRS):
 	$(MAKE) -C $(@:clean-%=%) clean
-

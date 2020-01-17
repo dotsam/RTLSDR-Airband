@@ -31,6 +31,10 @@
 #include <lame/lame.h>
 #include "rtl_airband.h"
 
+#if defined(__APPLE__)
+static void sincos(double, double*, double*)  __attribute__((weakref ("__sincos")));
+static void sincosf(float, float*, float*)    __attribute__((weakref ("__sincosf")));
+#endif
 
 FILE *debugf;
 
